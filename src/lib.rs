@@ -1,51 +1,60 @@
-extern crate nix;
 extern crate cargo;
-extern crate gimli;
-extern crate syntex_syntax;
-extern crate object;
-extern crate memmap;
-extern crate coveralls_api;
-extern crate fallible_iterator;
-extern crate rustc_demangle;
+extern crate chrono;
+
 #[macro_use]
 extern crate clap;
-#[macro_use]
-extern crate lazy_static;
-extern crate serde;
-extern crate serde_json;
-extern crate quick_xml;
-extern crate regex;
+extern crate coveralls_api;
+extern crate fallible_iterator;
+extern crate gimli;
+
 #[macro_use]
 extern crate horrorshow;
 
+#[macro_use]
+extern crate lazy_static;
+extern crate memmap;
+extern crate nix;
+extern crate object;
+extern crate quick_xml;
+extern crate regex;
+extern crate rustc_demangle;
+extern crate serde;
+
+#[macro_use]
+extern crate serde_derive;
+extern crate serde_json;
+extern crate syntex_syntax;
+
 
 use std::env;
-use std::io;
 use std::ffi::CString;
+use std::io;
 use std::path::{Path, PathBuf};
 use std::process::Command;
-use nix::unistd::*;
-use cargo::util::Config as CargoConfig;
-use cargo::core::{Workspace, Package};
+
 use cargo::ops;
+use cargo::core::{Workspace, Package};
+use cargo::util::Config as CargoConfig;
+use nix::unistd::*;
 
 
-pub mod config;
-pub mod test_loader;
 pub mod breakpoint;
+pub mod config;
 pub mod report;
+pub mod test_loader;
 pub mod traces;
-mod statemachine;
-mod source_analysis;
 
 /// Should be unnecessary with a future nix crate release.
 mod personality;
 mod ptrace_control;
+mod statemachine;
+mod source_analysis;
+
 
 use config::*;
-use test_loader::*;
 use ptrace_control::*;
 use statemachine::*;
+use test_loader::*;
 use traces::*;
 
 

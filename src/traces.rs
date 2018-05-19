@@ -7,7 +7,7 @@ use std::cmp::{Ord, Ordering};
 
 
 /// Used to track the state of logical conditions
-#[derive(Debug, Clone, Copy, Default, Hash, PartialEq, Eq, PartialOrd)]
+#[derive(Debug, Clone, Copy, Default, Hash, PartialEq, Eq, PartialOrd, Serialize)]
 pub struct LogicState {
     /// Whether the condition has been observed as true
     pub been_true: bool,
@@ -27,7 +27,7 @@ impl<'a> Add for &'a LogicState {
 }
 
 /// Shows what type of coverage data is being collected by a given trace
-#[derive(Debug, Clone, Hash, PartialEq, Eq, PartialOrd)]
+#[derive(Debug, Clone, Hash, PartialEq, Eq, PartialOrd, Serialize)]
 pub enum CoverageStat {
     /// Line coverage data (whether line has been hit)
     Line(u64),
@@ -65,7 +65,7 @@ impl Display for CoverageStat {
 }
 
 
-#[derive(Debug, Clone, Hash, PartialEq, Eq, PartialOrd)]
+#[derive(Debug, Clone, Hash, PartialEq, Eq, PartialOrd, Serialize)]
 pub struct Trace {
     /// Line the trace is on in the file
     pub line: u64,
@@ -142,7 +142,7 @@ pub fn coverage_percentage(traces: &[&Trace]) -> f64 {
 
 /// Stores all the program traces mapped to files and provides an interface to
 /// add, query and change traces.
-#[derive(Debug)]
+#[derive(Debug, Serialize)]
 pub struct TraceMap {
     /// Traces in the program mapped to the given file
     traces: BTreeMap<PathBuf, Vec<Trace>>,
